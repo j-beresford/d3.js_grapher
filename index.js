@@ -35,3 +35,17 @@ function listremove2(params) {
 function listremoveall3(params) {
     itemlist.selectAll("li").remove()
 }
+
+function changepic(imgName) {
+    d3.select("#animal")
+        .attr("src",imgName)
+}
+
+function changecol(){
+    let color = d3.select("h5").style("color")
+    if(color==='red') {
+        d3.select("h5").style('color','red')
+    } else {
+        d3.select("h5").style('color','blue')     
+    }
+}
