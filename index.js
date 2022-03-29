@@ -23,10 +23,29 @@ function count(){
 }
 
 function listadd1() {
+    let c = count()+1
     itemlist.append("li")
-    .text("text in added list")
+    .text("text added "+c)
 }
 
 function listremove2(params) {
-    itemlist.remove("li")
+    itemlist.select("li:last-child").remove()
+}
+
+function listremoveall3(params) {
+    itemlist.selectAll("li").remove()
+}
+
+function changepic(imgName) {
+    d3.select("#animal")
+        .attr("src",imgName)
+}
+
+function changecol(){
+    let color = d3.select("h5").style("color")
+    if(color==='red') {
+        d3.select("h5").style('color','red')
+    } else {
+        d3.select("h5").style('color','blue')     
+    }
 }
