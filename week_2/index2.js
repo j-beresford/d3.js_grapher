@@ -4,10 +4,10 @@ d3.csv("data.csv").then(function(data){
     data.sort((a,b)=>{
         return d3.ascending(a.name,b.name)
     })
-    let filteredData = data.filter(d=>{
-        return d.age<60
+    let filteredData = data.filter(d => {
+        return d.age>30
     })
-    showData(data)
+    showData(filteredData)
 })
 
 function showData(clients){
