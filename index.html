@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <html>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head></head>
 
@@ -25,11 +27,13 @@
 <button onclick="listremoveall3()">remove all items</button>
 
 <div>
-    <img id="animal" src="dog.png" height="100">
+    <img id="animal" src="dog.png" width=100%>
 </div>
 
-<button onclick="showcat('cat.jpeg')">Show Cat</button>
-<button onclick="showdog('dog.png')">Show Dog</button>
+<h5>This is an animal</h5>
+<button onclick="changepic('cat.jpeg')">Show Cat</button>
+<button onclick="changepic('dog.png')">Show Dog</button>
+<button onclick="changecol('red')">Change text to red</button>
 
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
