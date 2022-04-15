@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<body>
+
+    <p>There are loads of types of map: geoMercator, geoAzimuthalEqualArea, geoOrthgraphic, geoNaturalEarth1 etc etc </p>
+
+    <svg id="container" height="800" width="800" style="border: 1px solid black">
+    <g id="innerBody" transform="translate(100,100)"></g>
+    </svg>
+</body>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+
+    let innerBody = d3.select("#innerBody")
+    d3.json("countries.geo.json").then(showData)
+
+    function showData(mapInfo) {
+        let bodyHeight=400
+        let bodyWidth=400
+        
+        let projection = d3.geoMercator()
+            .scale(90)
+            .translate([bodyWidth/2,bodyHeight/2])
+
+        let path = d3.geoPath()
+            .projection(projection)
+
+        innerBody.selectAll("path")
+            .data(mapInfo.features)
+            .enter()
+            .append("path")
+            .attr("d", d=> path(d))
+            .attr("stroke","white")
+            .attr("fill", 
+                d => cScale(d.pop_est)
+            )
+
+    }
+
+</script>
+    

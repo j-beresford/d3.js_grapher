@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<body>
+
+    <p>There are loads of types of map: geoMercator, geoAzimuthalEqualArea, geoOrthgraphic, geoNaturalEarth1 etc etc </p>
+
+    <svg id="container" height="800" width="800" style="border: 1px solid black">
+    <g id="innerBody" transform="translate(100,100)"></g>
+    </svg>
+</body>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+
+    let innerBody = d3.select("#innerBody")
+
+    Promise.all([
+        d3.csv("dataset.csv"),
+        d3.json("countries.geo.json")
+    ]).then(showData)
+
+
+    function showData(dataSources) {
+        let mapInfo = dataSources[1]
+        let data = dataSources[0]
+
+        let dataIndex = {}
+        for (let c of data){
+            let country = c.country;
+            dataIndex[country = +c.magnitude]
+        }
+
+        mapInfo.features = mapInfo.features.map(d=>{
+            let country = d.properties.name;
+            let magnitude = dataIndex[country]
+            d.properties.magnitude = magnitude;
+            return d;
+        })
+
+        let maxQuack = d3.max(mapInfo.features,
+           d=>d.properties.magnitude)
+
+        let cScale = d3.scaleLinear()
+            .domain([0,maxQuack])
+            .range(["white","red"])
+
+        let bodyHeight=400
+        let bodyWidth=400
+        
+        var projection = 
+            d3.geoMercator()
+                .scale(90)
+                .translate([bodyWidth/2,bodyHeight/2])
+
+        var path = d3.geoPath()
+            .projection(projection)
+
+        innerBody.selectAll("path")
+            .data(mapInfo.features)
+            .enter()
+            .append("path")
+            .attr("d", d=> path(d))
+            .attr("fill",
+                d => d.properties.magnitude ?
+                    cScale(d.properties.magnitude):
+                    "white"
+                )
+
+    }
+
+</script>
+    
