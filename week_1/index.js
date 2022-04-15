@@ -44,8 +44,8 @@ function changepic(imgName) {
 function changecol(){
     let color = d3.select("h5").style("color")
     if(color==='red') {
-        d3.select("h5").style('color','red')
+        d3.select("h5").style('color','blue')
     } else {
-        d3.select("h5").style('color','blue')     
+        d3.select("h5").style('color','red')     
     }
 }
